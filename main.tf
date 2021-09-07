@@ -26,6 +26,10 @@ resource "aws_security_group" "this" {
     Env       = var.env
     Name      = "${var.env}-openvpn-connector"
   }
+  
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 # EC2
