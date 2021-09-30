@@ -41,6 +41,8 @@ resource "aws_instance" "this" {
   subnet_id              = var.private_subnets[0]
   key_name               = var.ec2_key_pair_name
   vpc_security_group_ids = [aws_security_group.this[0].id]
+  
+  disable_api_termination = true
 
   lifecycle {
     create_before_destroy = true
