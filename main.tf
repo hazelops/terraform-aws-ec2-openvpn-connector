@@ -45,7 +45,7 @@ resource "aws_instance" "this" {
   disable_api_termination = true
 
   lifecycle {
-    create_before_destroy = true
+    ignore_changes = all
   }
 
   user_data              = data.template_file.ec2_user_data.rendered
