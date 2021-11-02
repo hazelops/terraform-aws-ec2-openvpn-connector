@@ -1,8 +1,8 @@
 # Security Groups
 resource "aws_security_group" "this" {
   count       = var.enabled ? 1 : 0
-  name        = "${var.env}-openvpn-connector"
-  description = "Security Group for Cloud OpenVPN EC2 Instance (connector)"
+  name        = local.name
+  description = "Security Group for Cloud OpenVPN+Bastion EC2 Instance (connector)"
   vpc_id      = var.vpc_id
 
   ingress {
@@ -24,7 +24,7 @@ resource "aws_security_group" "this" {
   tags = {
     Terraform = "true"
     Env       = var.env
-    Name      = "${var.env}-openvpn-connector"
+    Name      = local.name
   }
   
   lifecycle {
@@ -40,9 +40,12 @@ resource "aws_instance" "this" {
   iam_instance_profile   = aws_iam_instance_profile.this.name
   subnet_id              = var.private_subnets[0]
   key_name               = var.ec2_key_pair_name
-  vpc_security_group_ids = [aws_security_group.this[0].id]
+  vpc_security_group_ids = concat(var.ext_security_groups, [
+    aws_security_group.this[0].id
+  ])
   
-  disable_api_termination = true
+  disable_api_termination     = true
+  associate_public_ip_address = false
 
   lifecycle {
     ignore_changes = all
@@ -53,7 +56,7 @@ resource "aws_instance" "this" {
   tags = {
     Terraform = "true"
     Env       = var.env
-    Name      = "${var.env}-openvpn-connector"
+    Name      = local.name
   }
 
 }

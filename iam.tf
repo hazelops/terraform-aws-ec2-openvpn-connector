@@ -1,6 +1,6 @@
 # AWS SSM resources
 resource "aws_iam_role" "this" {
-  name               = "${var.env}-openvpn-connector"
+  name               = local.name
   assume_role_policy = data.aws_iam_policy_document.this.json
 }
 
@@ -10,7 +10,7 @@ resource "aws_iam_role_policy_attachment" "this" {
 }
 
 resource "aws_iam_instance_profile" "this" {
-  name = "${var.env}-openvpn-connector"
+  name = local.name
   role = aws_iam_role.this.name
 }
 
