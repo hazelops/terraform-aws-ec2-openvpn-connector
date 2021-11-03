@@ -1,6 +1,4 @@
 variable "env" {}
-
-variable "aws_profile" {}
 variable "vpc_id" {}
 variable "private_subnets" {}
 variable "ec2_key_pair_name" {}
@@ -43,7 +41,7 @@ variable "ssh_forward_rules" {
 }
 
 locals {
-  name         = "${var.env}-openvpn-connector(bastion)"
+  name         = "${var.env}-bastion-openvpn-connector"
   proxycommand = <<-EOT
     ProxyCommand sh -c "aws ssm start-session --target %h --document-name AWS-StartSSHSession --parameters 'portNumber=%p'"
     EOT
@@ -55,4 +53,3 @@ locals {
   ], var.ssh_forward_rules)
   ssm_document_name = local.name
 }
-
