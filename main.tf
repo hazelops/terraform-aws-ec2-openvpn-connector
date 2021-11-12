@@ -42,7 +42,7 @@ resource "aws_instance" "this" {
     aws_security_group.this.id
   ])
   
-  disable_api_termination     = true
+  disable_api_termination     = var.vpn_enabled ? true : false
   associate_public_ip_address = false
 
   lifecycle {
