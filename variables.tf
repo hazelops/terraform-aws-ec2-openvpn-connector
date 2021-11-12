@@ -2,17 +2,26 @@ variable "env" {}
 variable "vpc_id" {}
 variable "private_subnets" {}
 variable "ec2_key_pair_name" {}
-variable "openvpn_token" {}
+variable "openvpn_token" {
+  type    = string
+  default = ""
+}
 
 variable "instance_type" {
   type    = string
   default = "t3.nano"
 }
 
-variable "enabled" {
+variable "vpn_enabled" {
   type        = bool
   default     = true
-  description = "Gives ability to enable or disable Creation of NAT EC2"
+  description = "Gives ability to enable or disable Cloud OpenVPN EC2 connector functionality"
+}
+
+variable "bastion_enabled" {
+  type        = bool
+  default     = true
+  description = "Gives ability to enable or disable Bastion functionality"
 }
 
 variable "ext_security_groups" {
@@ -41,7 +50,7 @@ variable "ssh_forward_rules" {
 }
 
 locals {
-  name         = "${var.env}-bastion-openvpn-connector"
+  name         = "${var.env}${var.bastion_enabled ? "-bastion" : ""}${var.vpn_enabled ? "-openvpn-connector" : ""}"
   proxycommand = <<-EOT
     ProxyCommand sh -c "aws ssm start-session --target %h --document-name AWS-StartSSHSession --parameters 'portNumber=%p'"
     EOT
