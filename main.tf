@@ -33,8 +33,7 @@ resource "aws_security_group" "this" {
 
 # EC2
 resource "aws_instance" "this" {
-  ami                    =  "ami-022d4249382309a48"
-# ami                    =  join("", data.aws_ami.ubuntu_20_04.*.id)
+ ami                    =  join("", data.aws_ami.ubuntu_20_04.*.id)
   instance_type          = var.instance_type
   iam_instance_profile   = aws_iam_instance_profile.this.name
   subnet_id              = var.private_subnets[0]
@@ -43,7 +42,6 @@ resource "aws_instance" "this" {
     aws_security_group.this.id
   ])
 
-  disable_api_termination     = var.vpn_enabled ? true : false
   associate_public_ip_address = false
 
   lifecycle {

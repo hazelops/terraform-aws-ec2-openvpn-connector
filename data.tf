@@ -14,7 +14,8 @@ data "aws_ami" "ubuntu_20_04" {
   most_recent = true
   filter {
     name   = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
+    values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-20211118"]
+    # Ubuntu 20.04 LTS amd64 image at us-east-1. If upgrade is needed, you would need to re-connect to openvpn.
   }
   filter {
     name   = "virtualization-type"
