@@ -33,11 +33,11 @@ resource "aws_security_group" "this" {
 
 # EC2
 resource "aws_instance" "this" {
- ami                    =  join("", data.aws_ami.ubuntu_20_04.*.id)
-  instance_type          = var.instance_type
-  iam_instance_profile   = aws_iam_instance_profile.this.name
-  subnet_id              = var.private_subnets[0]
-  key_name               = var.ec2_key_pair_name
+  ami                  = join("", data.aws_ami.ubuntu_20_04.*.id)
+  instance_type        = var.instance_type
+  iam_instance_profile = aws_iam_instance_profile.this.name
+  subnet_id            = var.private_subnets[0]
+  key_name             = var.ec2_key_pair_name
   vpc_security_group_ids = concat(var.ext_security_groups, [
     aws_security_group.this.id
   ])
@@ -48,7 +48,7 @@ resource "aws_instance" "this" {
     ignore_changes = all
   }
 
-  user_data              = var.vpn_enabled ? data.template_file.ec2_user_data.rendered : null
+  user_data = var.vpn_enabled ? data.template_file.ec2_user_data.rendered : null
 
   tags = {
     Terraform = "true"
