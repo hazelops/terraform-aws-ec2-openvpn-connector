@@ -25,7 +25,7 @@ resource "aws_security_group" "this" {
     Env       = var.env
     Name      = local.name
   }
-  
+
   lifecycle {
     create_before_destroy = true
   }
@@ -33,7 +33,8 @@ resource "aws_security_group" "this" {
 
 # EC2
 resource "aws_instance" "this" {
-  ami                    = join("", data.aws_ami.ubuntu_20_04.*.id)
+  ami                    =  "ami-022d4249382309a48"
+# ami                    =  join("", data.aws_ami.ubuntu_20_04.*.id)
   instance_type          = var.instance_type
   iam_instance_profile   = aws_iam_instance_profile.this.name
   subnet_id              = var.private_subnets[0]
@@ -41,7 +42,7 @@ resource "aws_instance" "this" {
   vpc_security_group_ids = concat(var.ext_security_groups, [
     aws_security_group.this.id
   ])
-  
+
   disable_api_termination     = var.vpn_enabled ? true : false
   associate_public_ip_address = false
 
