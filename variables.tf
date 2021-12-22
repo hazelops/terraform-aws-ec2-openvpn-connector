@@ -33,9 +33,6 @@ variable "ext_security_groups" {
 variable "allowed_cidr_blocks" {
   type        = list(string)
   description = "List of network subnets that are allowed"
-  default = [
-    "0.0.0.0/0"
-  ]
 }
 
 variable "ssm_role_arn" {
