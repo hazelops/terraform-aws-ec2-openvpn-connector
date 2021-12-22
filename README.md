@@ -6,6 +6,7 @@ This module is used to deploy a [connector](https://openvpn.net/cloud-docs/conne
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.13 |
+| <a name="requirement_local"></a> [local](#requirement\_local) | ~> 1.2 |
 
 ## Providers
 
@@ -37,16 +38,24 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_allowed_cidr_blocks"></a> [allowed\_cidr\_blocks](#input\_allowed\_cidr\_blocks) | List of network subnets that are allowed | `list(string)` | <pre>[<br>  "0.0.0.0/0"<br>]</pre> | no |
+| <a name="input_allowed_cidr_blocks"></a> [allowed\_cidr\_blocks](#input\_allowed\_cidr\_blocks) | List of network subnets that are allowed. According to PCI-DSS, CIS AWS and SOC2 providing a default wide-open CIDR is not secure. | `list(string)` | n/a | yes |
+| <a name="input_bastion_enabled"></a> [bastion\_enabled](#input\_bastion\_enabled) | Gives ability to enable or disable Bastion functionality | `bool` | `true` | no |
 | <a name="input_ec2_key_pair_name"></a> [ec2\_key\_pair\_name](#input\_ec2\_key\_pair\_name) | n/a | `any` | n/a | yes |
-| <a name="input_enabled"></a> [enabled](#input\_enabled) | Gives ability to enable or disable Creation of NAT EC2 | `bool` | `true` | no |
 | <a name="input_env"></a> [env](#input\_env) | n/a | `any` | n/a | yes |
+| <a name="input_ext_security_groups"></a> [ext\_security\_groups](#input\_ext\_security\_groups) | External security groups to add to bastion host | `list(any)` | `[]` | no |
 | <a name="input_instance_type"></a> [instance\_type](#input\_instance\_type) | n/a | `string` | `"t3.nano"` | no |
-| <a name="input_openvpn_token"></a> [openvpn\_token](#input\_openvpn\_token) | n/a | `any` | n/a | yes |
+| <a name="input_openvpn_token"></a> [openvpn\_token](#input\_openvpn\_token) | n/a | `string` | `""` | no |
 | <a name="input_private_subnets"></a> [private\_subnets](#input\_private\_subnets) | n/a | `any` | n/a | yes |
+| <a name="input_ssh_forward_rules"></a> [ssh\_forward\_rules](#input\_ssh\_forward\_rules) | Rules that will enable port forwarding. SSH Config syntax | `list(string)` | `[]` | no |
 | <a name="input_ssm_role_arn"></a> [ssm\_role\_arn](#input\_ssm\_role\_arn) | n/a | `string` | `"arn:aws:iam::aws:policy/service-role/AmazonEC2RoleforSSM"` | no |
 | <a name="input_vpc_id"></a> [vpc\_id](#input\_vpc\_id) | n/a | `any` | n/a | yes |
+| <a name="input_vpn_enabled"></a> [vpn\_enabled](#input\_vpn\_enabled) | Gives ability to enable or disable Cloud OpenVPN EC2 connector functionality | `bool` | `true` | no |
 
 ## Outputs
 
-No outputs
+| Name | Description |
+|------|-------------|
+| <a name="output_cmd"></a> [cmd](#output\_cmd) | n/a |
+| <a name="output_instance_id"></a> [instance\_id](#output\_instance\_id) | n/a |
+| <a name="output_security_group"></a> [security\_group](#output\_security\_group) | n/a |
+| <a name="output_ssh_config"></a> [ssh\_config](#output\_ssh\_config) | n/a |
