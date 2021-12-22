@@ -32,7 +32,7 @@ variable "ext_security_groups" {
 
 variable "allowed_cidr_blocks" {
   type        = list(string)
-  description = "List of network subnets that are allowed"
+  description = "List of network subnets that are allowed. According to PCI-DSS, CIS AWS and SOC2 providing a default wide-open CIDR is not secure."
 }
 
 variable "ssm_role_arn" {
