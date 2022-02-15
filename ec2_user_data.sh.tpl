@@ -14,7 +14,7 @@ sudo apt update
 sudo apt install -y python3-openvpn-connector-setup
 
 # Install more tools
-sudo apt install -y mc gnupg unzip ca-certificates curl
+sudo apt install -y mc gnupg unzip ca-certificates curl htop
 
 # Install awscliv2
 sudo curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
