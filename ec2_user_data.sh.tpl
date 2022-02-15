@@ -13,6 +13,21 @@ sudo apt update
 # Install OpenVPN Connector setup tool
 sudo apt install -y python3-openvpn-connector-setup
 
+# Install more tools
+sudo apt install -y mc gnupg unzip ca-certificates curl
+
+# Install awscliv2
+sudo curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+sudo unzip awscliv2.zip
+sudo ./aws/install
+
+# Install kubectl
+sudo apt-get update && sudo apt-get install -y apt-transport-https
+curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee -a /etc/apt/sources.list.d/kubernetes.list
+sudo apt-get update
+sudo apt-get install -y kubectl
+
 # Enable IP forwarding
 sudo sed -i 's/#net.ipv4.ip_forward=1/net.ipv4.ip_forward=1/g' /etc/sysctl.conf
 sudo sed -i 's/#net.ipv6.conf.all.forwarding=1/net.ipv6.conf.all.forwarding=1/g' /etc/sysctl.conf
