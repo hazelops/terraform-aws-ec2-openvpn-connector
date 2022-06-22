@@ -42,7 +42,7 @@ resource "aws_instance" "this" {
     aws_security_group.this.id
   ])
 
-  associate_public_ip_address = false
+  associate_public_ip_address = var.public_ip_enabled
 
   lifecycle {
     ignore_changes = all
