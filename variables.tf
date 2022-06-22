@@ -24,6 +24,12 @@ variable "bastion_enabled" {
   description = "Gives ability to enable or disable Bastion functionality"
 }
 
+variable "public_ip_enabled" {
+  type        = bool
+  default     = false
+  description = "Enable Public IP for EC2 instance"
+}
+
 variable "ext_security_groups" {
   description = "External security groups to add to bastion host"
   type        = list(any)
