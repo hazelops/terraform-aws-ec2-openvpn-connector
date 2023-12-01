@@ -10,17 +10,12 @@ data "template_file" "ec2_user_data" {
   }
 }
 
-data "aws_ami" "ubuntu_20_04" {
+data "aws_ami" "ubuntu_22_04" {
   most_recent = true
   filter {
     name   = "name"
-    # Ubuntu 20.04 LTS amd64 image in us-east-1. If upgrade is needed, you would need to re-connect to openvpn.
-    values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-20211118"]
-
-  }
-  filter {
-    name   = "virtualization-type"
-    values = ["hvm"]
+    # Ubuntu 22.04 LTS amd64 image in us-east-1. If upgrade is needed, you would need to re-connect to openvpn.
+    values = ["ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-amd64-server-20230601"]
   }
   owners = ["099720109477"] # Canonical
 }

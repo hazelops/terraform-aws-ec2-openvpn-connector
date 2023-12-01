@@ -33,7 +33,7 @@ resource "aws_security_group" "this" {
 
 # EC2
 resource "aws_instance" "this" {
-  ami                  = join("", data.aws_ami.ubuntu_20_04.*.id)
+  ami                  = join("", data.aws_ami.ubuntu_22_04.*.id)
   instance_type        = var.instance_type
   iam_instance_profile = aws_iam_instance_profile.this.name
   subnet_id            = var.private_subnets[0]
