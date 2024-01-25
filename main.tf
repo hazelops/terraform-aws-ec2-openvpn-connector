@@ -48,7 +48,11 @@ resource "aws_instance" "this" {
     ignore_changes = all
   }
 
-  user_data = var.vpn_enabled ? data.template_file.ec2_user_data.rendered : null
+  user_data = var.vpn_enabled ? templatefile("${path.module}/ec2_user_data.sh.tftpl",
+    {
+      openvpn_token = var.openvpn_token
+    }
+  ) : null
 
   tags = {
     Terraform = "true"
