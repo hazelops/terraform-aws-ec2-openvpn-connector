@@ -45,7 +45,7 @@ resource "aws_instance" "this" {
   associate_public_ip_address = var.public_ip_enabled
 
   lifecycle {
-    ignore_changes = all
+    ignore_changes = [user_data, key_name]
   }
 
   user_data = var.vpn_enabled ? templatefile("${path.module}/ec2_user_data.sh.tftpl",
